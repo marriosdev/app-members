@@ -12,12 +12,7 @@ const loading = ref(false);
 const dialog = ref(false);
 
 const copyToClipboard = (text) => {
-  const input = document.createElement("input");
-  input.value = text;
-  document.body.appendChild(input);
-  input.select();
-  document.execCommand("copy");
-  document.body.removeChild(input);
+  navigator.clipboard.writeText(text);
   createToast("Link copiado para a área de transferência", {
     type: "success",
   });
