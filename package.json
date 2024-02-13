@@ -10,7 +10,8 @@
   },
   "dependencies": {
     "axios": "^1.6.7",
-    "oh-vue-icons": "^1.0.0-rc3",
+    "bootstrap-icons": "^1.11.3",
+    "mosha-vue-toastify": "^1.0.23",
     "vue": "^3.4.15",
     "vue-router": "^4.2.5",
     "vuetify": "^3.5.2"
