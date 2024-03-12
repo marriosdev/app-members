@@ -27,9 +27,3 @@ app.use(router)
 app.use(vuetify)
 app.use(api)
 app.mount('#app')
-
-
-
-
-
-

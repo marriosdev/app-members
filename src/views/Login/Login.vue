@@ -1,6 +1,7 @@
 <script setup>
 import { ref, reactive, computed, onMounted } from "vue";
 import api from "@/services/api";
+import { createToast } from "mosha-vue-toastify";
 /**
  * LOGIN
  */
@@ -14,8 +15,12 @@ const user = reactive({
 const loginRequest = async () => {
   api.post("/login", user).then((response) => {
     localStorage.setItem("token", response.data.jwt.access_token);
-    localStorage.setItem("name", response.data.user.name);
-    window.location.href = "/home";
+    localStorage.setItem("name", String(response.data.user.name).split(" ")[0]);
+    window.location.href = "/minhas-faturas";
+  }).catch((error) => {
+    createToast(error.response.data.message, {
+      type: "danger",
+    });
   });
 };
 </script>
@@ -27,7 +32,7 @@ const loginRequest = async () => {
         <h2>SGA</h2>
       </div>
       <div class="d-flex justify-center">
-        <img src="@/assets/img/logo.png" width="100" alt="" />
+        <img src="@/assets/img/profile.png" width="80" alt="" />
       </div>
     </div>
 

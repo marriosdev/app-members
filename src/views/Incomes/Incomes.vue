@@ -121,7 +121,7 @@ const coresStatusPagamento = [
       <v-card-actions>
         <v-btn
           variant="flat"
-          color="green"
+          color="blue-accent-4"
           @click="payIncome(fatura), (dialog = true)"
           v-if="
             fatura.payment_status.name == 'Vencido' ||
@@ -162,7 +162,7 @@ const coresStatusPagamento = [
                 hide-details
               ></v-text-field>
               <v-btn
-                color="green-darken-1"
+                color="blue-darken-1"
                 @click="copyToClipboard(incomePayment.copyPasteLink)"
                 >Copiar</v-btn
               >
@@ -171,7 +171,7 @@ const coresStatusPagamento = [
         </v-card-text>
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn color="green-darken-1" variant="text" @click="dialog = false">
+          <v-btn color="blue-darken-1" variant="text" @click="dialog = false">
             Já paguei
           </v-btn>
         </v-card-actions>
