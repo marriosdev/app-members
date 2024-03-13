@@ -1,6 +1,7 @@
 <script setup>
 import Loader from "@/components/Loader.vue";
 import store from "@/store/store.js";
+
 </script>
 
 <template>
