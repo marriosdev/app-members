@@ -3,11 +3,13 @@ import store from '@/store/store.js'
 import router from '@/router/index.js'
 import { createToast } from 'mosha-vue-toastify';
 
+const jwtToken = localStorage.getItem("token")
+
 const api = axios.create({
     baseURL: import.meta.env.VITE_API_URL,
     timeout: 5000,
     headers: {
-        Authorization: 'Bearer ' + localStorage.getItem('token')
+        Authorization: 'Bearer ' + jwtToken,
     }
 });
 

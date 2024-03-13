@@ -3,6 +3,7 @@ import { ref, reactive, computed, onMounted } from "vue";
 import api from "@/services/api";
 import { createToast } from "mosha-vue-toastify";
 import router from "@/router";
+import store from "@/store/store";
 /**
  * LOGIN
  */
@@ -17,6 +18,7 @@ const loginRequest = async () => {
   api.post("/login", user).then((response) => {
     localStorage.setItem("token", response.data.jwt.access_token);
     localStorage.setItem("name", String(response.data.user.name).split(" ")[0]);
+    store.token = response.data.jwt.access_token;
     router.push("/home");
   }).catch((error) => {
     createToast(error.response.data.message, {
