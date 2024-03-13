@@ -66,7 +66,7 @@ const loginRequest = async () => {
       :append-inner-icon="visible ? 'mdi-eye-off' : 'mdi-eye'"
       :type="visible ? 'text' : 'password'"
       density="compact"
-      placeholder="Enter your password"
+      placeholder="Digite sua senha"
       prepend-inner-icon="mdi-lock-outline"
       variant="outlined"
       v-model="user.password"
