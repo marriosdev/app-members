@@ -42,22 +42,23 @@ const logout = () => {
         <v-list-item
           color="blue-darken-3"
           :to="'/home'"
-          prepend-icon="mdi-view-dashboard"
+          prepend-icon="mdi-home"
           title="Inicio"
-          value="home"
         ></v-list-item>
         <v-list-item
           color="blue-darken-3"
           :to="'/minhas-faturas'"
-          prepend-icon="mdi-forum"
+          prepend-icon="mdi-file-document-outline"
           title="Faturas"
-          value="about"
         ></v-list-item>
+
+        <v-divider class="mb-4 mt-4"></v-divider>
+        
         <v-list-item
           color="blue-darken-3"
           @click="logout()"
           :to="'/login'"
-          prepend-icon="mdi-forum"
+          prepend-icon="mdi-logout"
           title="Sair"
           value=""
         ></v-list-item>
@@ -68,6 +69,8 @@ const logout = () => {
 
 <style scoped>
 .profile-img {
+  border-color: 10px solid rgb(250, 0, 0) !important;
+  padding: 4px;
   border-radius: 50%;
   margin-left: 10px;
   margin-right: 10px;

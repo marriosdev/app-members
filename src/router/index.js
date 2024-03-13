@@ -3,6 +3,11 @@ import api from '@/services/api'
 
 const routes = [
     {
+        path: '/server-error',
+        name: 'server-error',
+        component: () => import('@/views/ErrorPages/ServerError.vue')
+    },
+    {
         path: '/login',
         name: 'login',
         component: () => import('@/views/Login/Login.vue')

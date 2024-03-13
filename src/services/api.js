@@ -11,12 +11,18 @@ const api = axios.create({
     }
 });
 
-
 api.interceptors.response.use(
     (response) => {
         return response;
     },
     (error) => {
+        console.log(error)
+        if(error.message == "Network Error") {
+            createToast("Erro ao se conectar com o servidor. Entre em contato com os admins do sistema.", {
+                type: 'danger',
+            });
+            router.push("/server-error");
+        }
         if (error.response.status == 401) {
             localStorage.clear();
             router.push("/login");

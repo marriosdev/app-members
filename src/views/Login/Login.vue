@@ -16,7 +16,7 @@ const loginRequest = async () => {
   api.post("/login", user).then((response) => {
     localStorage.setItem("token", response.data.jwt.access_token);
     localStorage.setItem("name", String(response.data.user.name).split(" ")[0]);
-    window.location.href = "/minhas-faturas";
+    window.location.href = "/home";
   }).catch((error) => {
     createToast(error.response.data.message, {
       type: "danger",
@@ -29,10 +29,9 @@ const loginRequest = async () => {
   <div>
     <div class="">
       <div class="d-flex justify-center">
-        <h2>SGA</h2>
       </div>
       <div class="d-flex justify-center">
-        <img src="@/assets/img/profile.png" width="80" alt="" />
+        <img src="@/assets/img/logo.png" width="80" alt="" />
       </div>
     </div>
 
@@ -72,10 +71,9 @@ const loginRequest = async () => {
     <v-btn
       block
       class="mb-8"
-      color="blue"
+      color="blue-accent-4"
       size="large"
       @click="loginRequest()"
-      variant="tonal"
       :disabled="user.cpf == '' || user.password == '' ? true : false"
     >
       Entrar
