@@ -135,8 +135,8 @@ const coresStatusPagamento = [
 
   <!-- Modal pagamentos -->
   <v-row justify="center">
-    <v-dialog v-model="dialog" width="800">
-      <v-card>
+    <v-bottom-sheet v-model="dialog" >
+      <v-card height="550">
         <v-card-title>
           <h4>Pagar fatura</h4>
         </v-card-title>
@@ -176,6 +176,6 @@ const coresStatusPagamento = [
           </v-btn>
         </v-card-actions>
       </v-card>
-    </v-dialog>
+    </v-bottom-sheet>
   </v-row>
 </template>
