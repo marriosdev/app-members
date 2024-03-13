@@ -15,6 +15,7 @@ const user = reactive({
 });
 
 const loginRequest = async () => {
+  store.loading = true
   api.post("/login", user).then((response) => {
     localStorage.setItem("token", response.data.jwt.access_token);
     localStorage.setItem("name", String(response.data.user.name).split(" ")[0]);

@@ -1,7 +1,7 @@
 <script setup>
 import { ref, reactive, computed, onMounted } from "vue";
 import { createToast } from "mosha-vue-toastify";
-
+import Loader from "@/components/Loader.vue";
 import Sidebar from "@/components/Sidebar.vue";
 import api from "@/services/api";
 
@@ -76,6 +76,7 @@ const coresStatusPagamento = [
 </script>
 
 <template>
+  
   <Sidebar />
   <div v-if="loading">
     <v-skeleton-loader type="card" class="mb-3"></v-skeleton-loader>
@@ -136,7 +137,7 @@ const coresStatusPagamento = [
   <!-- Modal pagamentos -->
   <v-row justify="center">
     <v-bottom-sheet v-model="dialog" >
-      <v-card height="550">
+      <v-card height="600">
         <v-card-title>
           <h4>Pagar fatura</h4>
         </v-card-title>
@@ -153,7 +154,6 @@ const coresStatusPagamento = [
             </div>
             <div class="d-flex justify-center align-center">
               <v-text-field
-                disabled="true"
                 v-model="incomePayment.copyPasteLink"
                 :rules="nameRules"
                 :counter="10"

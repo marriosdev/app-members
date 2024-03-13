@@ -7,7 +7,7 @@ const jwtToken = localStorage.getItem("token")
 
 const api = axios.create({
     baseURL: import.meta.env.VITE_API_URL,
-    timeout: 5000,
+    timeout: 50000,
     headers: {
         Authorization: 'Bearer ' + jwtToken,
     }
@@ -15,10 +15,11 @@ const api = axios.create({
 
 api.interceptors.response.use(
     (response) => {
+        store.loading = false
         return response;
     },
     (error) => {
-        console.log(error)
+        store.loading = false
         if(error.message == "Network Error") {
             createToast("Erro ao se conectar com o servidor. Entre em contato com os admins do sistema.", {
                 type: 'danger',

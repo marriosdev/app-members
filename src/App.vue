@@ -5,7 +5,7 @@ import store from "@/store/store.js";
 
 <template>
   <main>
-    <router-view></router-view>
+    <router-view v-if="!store.loading"></router-view>
     <Loader v-if="store.loading" />
   </main>
 </template>

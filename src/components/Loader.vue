@@ -1,8 +1,10 @@
 <script setup>
+import store from "@/store/store";
 import { ref } from "vue";
+
 </script>
 <template>
-  <div class="d-flex justify-center">
+  <div class="d-flex justify-center" style="margin-top: 40vh;">
     <svg height="200px" width="200px" viewBox="0 0 128 128" class="loader">
       <defs>
         <clipPath id="loader-eyes">
