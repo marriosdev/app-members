@@ -36,11 +36,35 @@ const routes = [
         name: 'home',
         component: () => import('@/views/Home/Home.vue')
     },
+    {
+        meta: {
+            requiresAuth: false
+        },
+        path: '/password-recovery',
+        name: 'password-recovery',
+        component: () => import('@/views/PasswordRecovery/PasswordRecovery.vue')
+    },
+    {
+        meta: {
+            requiresAuth: false
+        },
+        path: '/save-new-password',
+        name: 'save-new-password',
+        component: () => import('@/views/PasswordRecovery/SaveNewPassword.vue')
+    },
 ]
 
 const router = createRouter({
     history: createWebHistory(),
     routes
 })
+
+router.beforeEach((to, from, next) => {
+    if(to.name == undefined) {
+      next({ path: '/home' })
+      return;
+    }
+    next()
+})  
 
 export default router
