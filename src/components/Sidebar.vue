@@ -5,10 +5,6 @@ const drawer = ref(false);
 const username = ref(localStorage.getItem("name"));
 const sheetMenuProfile = ref(false);
 const firstWord = ref(localStorage.getItem("name") ? username.value.split("")[0] : "");
-// um array de cores 
-const randomColor = ref(
-  "#" + [0, 1, 2, 3, 4, 5].map(() => Math.floor(Math.random() * 16).toString(16)).join("")
-);
 
 const logout = () => {
   localStorage.clear();
@@ -23,7 +19,7 @@ const logout = () => {
           ><i class="bi bi-list" style="font-size: 1.6rem"></i
         ></v-app-bar-nav-icon>
       </template>
-      <v-avatar :color="randomColor" class="mr-2" @click="sheetMenuProfile = true">
+      <v-avatar :color="'blue-accent-2'" class="mr-2" @click="sheetMenuProfile = true">
         <!-- <img
           @click="sheetMenuProfile = true"
           src="@/assets/img/profile.png"

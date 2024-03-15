@@ -88,12 +88,16 @@ const coresStatusPagamento = [
 <template>
   
   <Sidebar />
+  <h2 class="font-weight-medium blue-darken-3">Minhas faturas</h2>
+  
+  <v-divider class="mb-6"></v-divider>
+
   <div v-if="loading">
     <v-skeleton-loader type="card" class="mb-3"></v-skeleton-loader>
     <v-skeleton-loader type="card" class="mb-3"></v-skeleton-loader>
     <v-skeleton-loader type="card" class="mb-3"></v-skeleton-loader>
-    <v-skeleton-loader type="card" class="mb-3"></v-skeleton-loader>
   </div>
+
   <div class="mb-5" v-for="fatura in minhasFaturas" :key="fatura.id">
     <v-card
       margin="16"
@@ -131,6 +135,7 @@ const coresStatusPagamento = [
 
       <v-card-actions>
         <v-btn
+        width="100%"
           variant="flat"
           color="blue-accent-4"
           @click="payIncome(fatura), (dialog = true)"

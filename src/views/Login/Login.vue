@@ -82,7 +82,7 @@ const loginRequest = async () => {
   </div>
 </template>
 
-<style>
+<style scoped>
 
 p {
   color: rgb(4, 171, 186);
