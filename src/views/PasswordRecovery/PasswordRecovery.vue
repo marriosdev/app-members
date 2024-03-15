@@ -65,5 +65,15 @@ const recovery = async () => {
     >
       Recuperar
     </v-btn>
+    <router-link to="login">
+      <v-btn
+        block
+        class="mb-8"
+        color="blue-accent-4"
+        size="large"
+      >
+        Voltar para o início
+      </v-btn>
+    </router-link>
   </div>
 </template>

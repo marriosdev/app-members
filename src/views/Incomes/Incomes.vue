@@ -41,11 +41,21 @@ const loadModalIncome = ref(false);
  */
 const payIncome = async (fatura) => {
   loadModalIncome.value = true;
-  const response = await api.post("/payMonthlyPayment", { income_uuid: fatura.uuid });
-  incomePayment.paymentQrCode =
-    "data:image/png;base64," + response.data.qr_code;
-  incomePayment.copyPasteLink = response.data.copy_paste_link;
-  loadModalIncome.value = false;
+  api.post("/payMonthlyPayment", { income_uuid: fatura.uuid })
+    .then((response) => {
+      incomePayment.paymentQrCode =
+        "data:image/png;base64," + response.data.qr_code;
+      incomePayment.copyPasteLink = response.data.copy_paste_link;
+      loadModalIncome.value = false;
+    })
+    .catch((error) => {
+      createToast("Ocorreu um erro ao gerar o QRCode", {
+        type: "danger",
+      });
+      loadModalIncome.value = false;
+      dialog.value = false;
+    });
+
 };
 
 onMounted(() => {

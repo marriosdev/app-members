@@ -53,9 +53,10 @@ const loginRequest = async () => {
     >
       Senha
       <router-link to="password-recovery">
-        Esqueceu sua senha?
+        <p >
+          Esqueceu sua senha?
+        </p>
       </router-link>
-      >
     </div>
 
     <v-text-field
@@ -80,3 +81,16 @@ const loginRequest = async () => {
     </v-btn>
   </div>
 </template>
+
+<style>
+
+p {
+  color: rgb(4, 171, 186);
+}
+
+p:hover {
+  text-decoration: none !important;
+  cursor: pointer !important;
+  box-shadow: none !important;
+}
+</style>

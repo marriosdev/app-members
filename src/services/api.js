@@ -35,9 +35,6 @@ api.interceptors.response.use(
         }
         if (error.response.status == 401) {
             localStorage.clear();
-            createToast("Sua sessão expirou. Faça login novamente.", {
-                type: 'danger',
-            });
             router.push("/login");
         }
         return Promise.reject(error);

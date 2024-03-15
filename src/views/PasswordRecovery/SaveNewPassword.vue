@@ -3,6 +3,7 @@ import { reactive, ref } from "vue";
 import api from "@/services/api";
 import { createToast } from "mosha-vue-toastify";
 import store from "@/store/store";
+import router from "@/router";
 
 const user = reactive({
 cpf: localStorage.getItem("cpfRecovery"),
@@ -18,7 +19,7 @@ const updatePassword = async () => {
   api
     .post("/update-password", user)
     .then((response) => {
-      console.log("login");
+      router.push("/login");
       createToast("Senha alterada com sucesso!", {
         type: "success",
       });
@@ -76,7 +77,7 @@ const updatePassword = async () => {
           color="blue-accent-4"
           size="large"
           @click="updatePassword()"
-          :disabled="user.password != user.confirmPassword || user.password == '' || String(user.password).length < 8 ? true : false"
+          :disabled="user.password != user.confirmPassword || user.password == '' || String(user.password).length < 4 ? true : false"
         >
           Salvar nova senha
         </v-btn>
