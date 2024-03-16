@@ -52,6 +52,14 @@ const routes = [
         name: 'save-new-password',
         component: () => import('@/views/PasswordRecovery/SaveNewPassword.vue')
     },
+    {
+        meta: {
+            requiresAuth: false
+        },
+        path: '/minhas-informacoes',
+        name: 'minhas-informacoes',
+        component: () => import('@/views/Profile/Profile.vue')
+    },
 ]
 
 const router = createRouter({

@@ -36,7 +36,6 @@ onMounted(() => {
                 </v-btn>
             </router-link>
         </v-card-text>
-        
     </v-card>
 
     <v-card>

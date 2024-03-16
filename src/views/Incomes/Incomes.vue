@@ -1,5 +1,5 @@
 <script setup>
-import { ref, reactive, computed, onMounted } from "vue";
+import { ref, reactive, computed, onMounted, onUpdated } from "vue";
 import { createToast } from "mosha-vue-toastify";
 import Loader from "@/components/Loader.vue";
 import Sidebar from "@/components/Sidebar.vue";
@@ -7,9 +7,9 @@ import api from "@/services/api";
 
 // LOADERS
 const loading = ref(false);
-
 // Modal
 const dialog = ref(false);
+const username = ref(localStorage.getItem("name"));
 
 const copyToClipboard = (text) => {
   navigator.clipboard.writeText(text);
@@ -25,6 +25,14 @@ const buscarMinhasFaturas = async () => {
   const response = await api.get("/myincomes");
   minhasFaturas.value = response.data.data;
   loading.value = false;
+
+  faturasNaoPagas.value = minhasFaturas.value.filter(
+    (fatura) => fatura.payment_status.name !== "Pago"
+  );
+
+  faturasPagas.value = minhasFaturas.value.filter(
+    (fatura) => fatura.payment_status.name === "Pago"
+  );
 };
 
 // Objeto com as informações da fatura atual a qual o cliente está efetuando o pagamento ou somente vendos os detalhes
@@ -41,7 +49,8 @@ const loadModalIncome = ref(false);
  */
 const payIncome = async (fatura) => {
   loadModalIncome.value = true;
-  api.post("/payMonthlyPayment", { income_uuid: fatura.uuid })
+  api
+    .post("/payMonthlyPayment", { income_uuid: fatura.uuid })
     .then((response) => {
       incomePayment.paymentQrCode =
         "data:image/png;base64," + response.data.qr_code;
@@ -55,8 +64,12 @@ const payIncome = async (fatura) => {
       loadModalIncome.value = false;
       dialog.value = false;
     });
-
 };
+
+const faturasPagas = ref(0);
+const faturasNaoPagas = ref(0);
+const quantidadeFaturasNaoPagas = computed(() => faturasNaoPagas.value.length);
+const quantidadeFaturasTotal = computed(() => minhasFaturas.value.length);
 
 onMounted(() => {
   buscarMinhasFaturas();
@@ -86,10 +99,15 @@ const coresStatusPagamento = [
 </script>
 
 <template>
-  
   <Sidebar />
-  <h2 class="font-weight-medium blue-darken-3">Minhas faturas</h2>
-  
+  <h2 class="font-weight-medium blue-darken-3">
+    <v-btn @click="buscarMinhasFaturas()" class="ma-2" color="primary">
+      Atualizar
+      <v-icon icon="mdi-refresh" end></v-icon>
+    </v-btn>
+    Minhas faturas
+  </h2>
+
   <v-divider class="mb-6"></v-divider>
 
   <div v-if="loading">
@@ -98,7 +116,39 @@ const coresStatusPagamento = [
     <v-skeleton-loader type="card" class="mb-3"></v-skeleton-loader>
   </div>
 
-  <div class="mb-5" v-for="fatura in minhasFaturas" :key="fatura.id">
+  <v-card
+    class="mb-10 text-white"
+    color="amber-darken-1"
+    v-if="quantidadeFaturasTotal == 0"
+  >
+    <v-card-title>
+      <h4 class="font-weight-medium blue-darken-3">
+        <v-icon icon="mdi-alert-box" end></v-icon>
+        Oops!
+      </h4>
+    </v-card-title>
+    <v-card-text>
+      <p class="mb-3">Você ainda não tem faturas para pagar!</p>
+    </v-card-text>
+  </v-card>
+
+  <v-card
+    class="mb-10 text-white"
+    color="green-lighten-2"
+    v-if="quantidadeFaturasNaoPagas == 0 && quantidadeFaturasTotal != 0"
+  >
+    <v-card-title>
+      <h4 class="font-weight-medium blue-darken-3">
+        <v-icon icon="mdi-checkbox-marked-circle" end></v-icon>
+        Maravilha!😃
+      </h4>
+    </v-card-title>
+    <v-card-text>
+      <p class="mb-3">Suas faturas estão em dia! 🤗</p>
+    </v-card-text>
+  </v-card>
+
+  <div class="mb-5" v-for="fatura in faturasNaoPagas" :key="fatura.id">
     <v-card
       margin="16"
       elevation="16"
@@ -135,7 +185,7 @@ const coresStatusPagamento = [
 
       <v-card-actions>
         <v-btn
-        width="100%"
+          width="100%"
           variant="flat"
           color="blue-accent-4"
           @click="payIncome(fatura), (dialog = true)"
@@ -149,9 +199,46 @@ const coresStatusPagamento = [
     </v-card>
   </div>
 
+  <div class="mb-5" v-for="fatura in faturasPagas" :key="fatura.id">
+    <v-card
+      margin="16"
+      elevation="16"
+      class="mx-auto rounded-lg"
+      max-width="560"
+      :color="'lighten-5'"
+    >
+      <v-card-item>
+        <div>
+          <div class="text-h6 mb-1">
+            <div class="text-caption">
+              {{ fatura.uuid }}
+            </div>
+            <div class="d-flex justify-space-between">
+              <div>R${{ fatura.value }}</div>
+              <div class="text-caption">
+                Status:
+                <v-chip
+                  variant="flat"
+                  :color="
+                    coresStatusPagamento[fatura.payment_status.id - 1].color
+                  "
+                >
+                  {{ fatura.payment_status.name }}
+                </v-chip>
+              </div>
+            </div>
+          </div>
+          <div class="text-overline mb-1"></div>
+          <div class="text-caption">EMISSÃO: {{ fatura.emission_date }}</div>
+          <div class="text-caption">VENCIMENTO: {{ fatura.due_date }}</div>
+        </div>
+      </v-card-item>
+    </v-card>
+  </div>
+
   <!-- Modal pagamentos -->
   <v-row justify="center">
-    <v-bottom-sheet v-model="dialog" >
+    <v-bottom-sheet v-model="dialog">
       <v-card height="600">
         <v-card-title>
           <h4>Pagar fatura</h4>
