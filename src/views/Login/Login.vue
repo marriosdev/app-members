@@ -30,7 +30,7 @@ const loginRequest = async () => {
 </script>
 
 <template>
-  <div>
+  <div class="login-container mt-10" width="100%">
     <div class="">
       <div class="d-flex justify-center">
       </div>
@@ -41,31 +41,33 @@ const loginRequest = async () => {
 
     <div class="text-subtitle-1 text-medium-emphasis">CPF</div>
     <v-text-field
+      clearable
+      color="blue-accent-2"
       v-model="user.cpf"
       density="compact"
       placeholder="Digite seu cpf"
       prepend-inner-icon="mdi-email-outline"
       variant="outlined"
     ></v-text-field>
-
     <div
       class="text-subtitle-1 text-medium-emphasis d-flex align-center justify-space-between"
     >
       Senha
-      <router-link to="password-recovery">
-        <p >
+      <router-link to="password-recovery" >
+        <p color="blue-accent-1">
           Esqueceu sua senha?
         </p>
       </router-link>
     </div>
-
     <v-text-field
+      clearable
       :append-inner-icon="visible ? 'mdi-eye-off' : 'mdi-eye'"
       :type="visible ? 'text' : 'password'"
-      density="compact"
       placeholder="Digite sua senha"
-      prepend-inner-icon="mdi-lock-outline"
+      color="blue-accent-2"
+      density="compact"
       variant="outlined"
+      prepend-inner-icon="mdi-lock-outline"
       v-model="user.password"
       @click:append-inner="visible = !visible"
     ></v-text-field>
@@ -85,7 +87,7 @@ const loginRequest = async () => {
 <style scoped>
 
 p {
-  color: rgb(4, 171, 186);
+  color: rgb(151, 150, 150);
 }
 
 p:hover {
@@ -93,4 +95,5 @@ p:hover {
   cursor: pointer !important;
   box-shadow: none !important;
 }
+
 </style>

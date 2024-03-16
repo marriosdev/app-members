@@ -14,10 +14,22 @@ import validateSession from './services/validateSession';
 import { createVuetify } from 'vuetify'
 import * as components from 'vuetify/components'
 import * as directives from 'vuetify/directives'
+import store from './store/store';
+
+const darkTheme = ref(store.dark);
+
+if(localStorage.getItem('dark') != undefined){
+  darkTheme.value = localStorage.getItem('dark')
+}
+
+store.dark = darkTheme.value;
 
 const vuetify = createVuetify({
     components,
     directives,
+    theme: {
+        defaultTheme: darkTheme.value ? 'dark' : 'light',
+      }
 })
 
 const app = createApp(App)

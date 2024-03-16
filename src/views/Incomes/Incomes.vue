@@ -101,11 +101,10 @@ const coresStatusPagamento = [
 <template>
   <Sidebar />
   <h2 class="font-weight-medium blue-darken-3">
-    <v-btn @click="buscarMinhasFaturas()" class="ma-2" color="primary">
-      Atualizar
+    <v-btn @click="buscarMinhasFaturas()" class="ma-2" color="blue-accent-2">
+      Atualizar Faturas
       <v-icon icon="mdi-refresh" end></v-icon>
     </v-btn>
-    Minhas faturas
   </h2>
 
   <v-divider class="mb-6"></v-divider>

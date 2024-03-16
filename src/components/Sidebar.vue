@@ -1,5 +1,6 @@
 <script setup>
 import { ref, defineComponent } from "vue";
+import store from "@/store/store";
 
 const drawer = ref(false);
 const username = ref(localStorage.getItem("name"));
@@ -9,10 +10,23 @@ const firstWord = ref(
 );
 
 const logout = () => {
-  localStorage.clear();
+  localStorage.removeItem("token");
+  localStorage.removeItem("name");
   router.push("/login");
 };
+
+import { useTheme } from 'vuetify'
+
+const theme = useTheme()
+
+const setTheme = () => {
+  theme.global.name.value = store.dark ? 'light' : 'dark'
+  store.dark = !store.dark
+  localStorage.setItem('dark', store.dark)
+}
+
 </script>
+
 <template>
   <v-layout style="height: 50px">
     <v-app-bar :elevation="1" class="rounded-pill">
@@ -34,9 +48,9 @@ const logout = () => {
   <v-layout>
     <v-navigation-drawer v-model="drawer" temporary width="400">
       <div class="d-flex justify-space-between align-center">
-        <div>
+        <!-- <div>
           <img src="@/assets/img/logo.png" width="80" alt="" />
-        </div>
+        </div> -->
         <v-app-bar-nav-icon @click.stop="drawer = !drawer">
           <i class="bi bi-x-lg" style="font-size: 1.6rem"></i>
         </v-app-bar-nav-icon>
@@ -63,14 +77,23 @@ const logout = () => {
     <v-row justify="center">
       <v-bottom-sheet v-model="sheetMenuProfile" inset>
         <v-card height="600" class="rounded-t-xl">
-          <v-card-title>
-            <h4>{{ username }}</h4>
+          <v-card-title class=" d-flex justify-space-between">
+            <span>
+              <h4>{{ username }}</h4>
+            </span>
+            <span>
+              <v-icon
+                :icon="!store.dark ? 'bi-moon' : 'mdi-white-balance-sunny'"
+                @click="setTheme()"
+              >
+
+              </v-icon>
+            </span>
           </v-card-title>
           <v-card-text>
             <div>
               <div class="d-flex justify-center align-center">
                 <v-list density="compact" nav width="100%">
-                  
                   <v-list-item
                     color="blue-darken-3"
                     :to="'/minhas-informacoes'"
@@ -96,7 +119,6 @@ const logout = () => {
                     value=""
                   ></v-list-item>
                 </v-list>
-
               </div>
             </div>
           </v-card-text>

@@ -39,10 +39,11 @@ const updateProfile = () => {
       createToast("Perfil atualizado com sucesso!", {
         type: "success",
       });
-    }).catch(error => {
-        createToast("Erro ao atualizar perfil!", {
-            type: "danger",
-        });
+    })
+    .catch((error) => {
+      createToast("Erro ao atualizar perfil!", {
+        type: "danger",
+      });
     });
 };
 
@@ -85,70 +86,98 @@ onMounted(() => {
 
 <template>
   <Sidebar />
-  <v-sheet class="mx-auto" max-width="300">
-    <v-form validate-on="submit lazy" @submit.prevent="updateProfile">
-      <v-text-field
-        disabled
-        prepend-icon="mdi-file"
-        label="CPF"
-        v-model="user.cpf"
-      ></v-text-field>
-      <v-text-field
-        prepend-icon="mdi-account"
-        label="Nome"
-        v-model="user.name"
-      ></v-text-field>
-      <v-text-field
-        prepend-icon="mdi-account"
-        label="Sobrenome"
-        v-model="user.lastName"
-      ></v-text-field>
-      <v-text-field
-        prepend-icon="mdi-calendar"
-        label="Data de Nascimento (ano/mes/dia)"
-        v-model="user.birthDate"
-        @keypress="formatarData"
-      ></v-text-field>
-      <v-text-field
-        prepend-icon="mdi-file"
-        label="Matrícula"
-        v-model="user.registrationNumber"
-        @onchange="somenteNumeros"
-        @keypress="somenteNumeros"
-      ></v-text-field>
-      <v-text-field
-        prepend-icon="mdi-file"
-        label="NIS"
-        v-model="user.nis"
-        @onchange="somenteNumeros"
-        @keypress="somenteNumeros"
-      ></v-text-field>
-      <v-text-field
-        prepend-icon="mdi-file"
-        label="RG"
-        v-model="user.rg"
-        @onchange="somenteNumeros"
-        @keypress="somenteNumeros"
-      ></v-text-field>
-      <v-text-field
-        prepend-icon="mdi-email"
-        type="email"
-        label="E-mail"
-        v-model="user.email"
-      ></v-text-field>
-      <v-text-field
-        prepend-icon="mdi-phone"
-        label="Telefone"
-        v-model="user.phone"
-        @onchange="somenteNumeros"
-        @keypress="somenteNumeros"
-      ></v-text-field>
-      <v-text-field
-        prepend-icon="mdi-map"
-        label="Endereço"
-        v-model="user.address"
-      ></v-text-field>
-      <v-btn type="submit" color="blue-darken-1" width="100%">Salvar</v-btn>
-    </v-form>
-  </v-sheet>
+  <v-form validate-on="submit lazy" @submit.prevent="updateProfile">
+    <v-text-field
+      color="blue-accent-2"
+      density="compact"
+      variant="outlined"
+      disabled
+      :append-inner-icon="mdi-file"
+      label="CPF"
+      v-model="user.cpf"
+    ></v-text-field>
+    <v-text-field
+      color="blue-accent-2"
+      density="compact"
+      variant="outlined"
+      :append-inner-icon="mdi-account"
+      label="Nome"
+      v-model="user.name"
+    ></v-text-field>
+    <v-text-field
+      color="blue-accent-2"
+      density="compact"
+      variant="outlined"
+      :append-inner-icon="mdi-account"
+      label="Sobrenome"
+      v-model="user.lastName"
+    ></v-text-field>
+    <v-text-field
+      color="blue-accent-2"
+      density="compact"
+      variant="outlined"
+      :append-inner-icon="mdi-calendar"
+      label="Data de Nascimento (ano/mes/dia)"
+      v-model="user.birthDate"
+      @keypress="formatarData"
+    ></v-text-field>
+    <v-text-field
+      color="blue-accent-2"
+      density="compact"
+      variant="outlined"
+      :append-inner-icon="mdi-file"
+      label="Matrícula"
+      v-model="user.registrationNumber"
+      @onchange="somenteNumeros"
+      @keypress="somenteNumeros"
+    ></v-text-field>
+    <v-text-field
+      color="blue-accent-2"
+      density="compact"
+      variant="outlined"
+      :append-inner-icon="mdi-file"
+      label="NIS"
+      v-model="user.nis"
+      @onchange="somenteNumeros"
+      @keypress="somenteNumeros"
+    ></v-text-field>
+    <v-text-field
+      color="blue-accent-2"
+      density="compact"
+      variant="outlined"
+      :append-inner-icon="mdi-file"
+      label="RG"
+      v-model="user.rg"
+      @onchange="somenteNumeros"
+      @keypress="somenteNumeros"
+    ></v-text-field>
+    <v-text-field
+      color="blue-accent-2"
+      density="compact"
+      variant="outlined"
+      :append-inner-icon="mdi-email"
+      type="email"
+      label="E-mail"
+      v-model="user.email"
+    ></v-text-field>
+    <v-text-field
+      color="blue-accent-2"
+      density="compact"
+      variant="outlined"
+      :append-inner-icon="mdi-phone"
+      label="Telefone"
+      v-model="user.phone"
+      @onchange="somenteNumeros"
+      @keypress="somenteNumeros"
+    ></v-text-field>
+    <v-text-field
+      color="blue-accent-2"
+      density="compact"
+      variant="outlined"
+      :append-inner-icon="mdi-map"
+      label="Endereço"
+      v-model="user.address"
+    ></v-text-field>
+    <v-btn type="submit" color="blue-darken-1" width="100%">Salvar</v-btn>
+  </v-form>
 </template>
