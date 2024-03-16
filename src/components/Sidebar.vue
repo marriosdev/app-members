@@ -29,7 +29,7 @@ const setTheme = () => {
 
 <template>
   <v-layout style="height: 50px">
-    <v-app-bar :elevation="1" class="rounded-pill">
+    <v-app-bar :elevation="1" class="rounded-pill mt-2">
       <template v-slot:prepend>
         <v-app-bar-nav-icon @click.stop="drawer = !drawer"
           ><i class="bi bi-list" style="font-size: 1.6rem"></i
