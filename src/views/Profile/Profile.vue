@@ -86,7 +86,7 @@ onMounted(() => {
 
 <template>
   <Sidebar />
-  <v-form validate-on="submit lazy" @submit.prevent="updateProfile">
+  <v-form validate-on="submit lazy" @submit.prevent="updateProfile" class="mt-10">
     <v-text-field
       color="blue-accent-2"
       density="compact"
