@@ -1,12 +1,25 @@
 <script setup>
 import { ref, reactive, computed, onMounted } from "vue";
+import api from "@/services/api";
 
 import Sidebar from '@/components/Sidebar.vue';
 const username = ref(localStorage.getItem("name"));
 const horario = ref(new Date().toLocaleTimeString());
 const mensagem = ref("")
+const minhasFaturas = ref([]);
+
+const buscarMinhasFaturas = async () => {
+  const response = await api.get("/myincomes");
+  minhasFaturas.value = response.data.data;
+
+  faturasNaoPagas.value = minhasFaturas.value.filter(
+    (fatura) => fatura.payment_status.name !== "Pago"
+  ).length;
+};
 
 onMounted(() => {
+    buscarMinhasFaturas();
+
     if(horario.value > "12:00:00" && horario.value < "18:00:00"){
         mensagem.value = "Boa tarde";
     } else if(horario.value > "18:00:00" && horario.value < "23:59:59"){

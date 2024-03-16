@@ -4,7 +4,9 @@ import { ref, defineComponent } from "vue";
 const drawer = ref(false);
 const username = ref(localStorage.getItem("name"));
 const sheetMenuProfile = ref(false);
-const firstWord = ref(localStorage.getItem("name") ? username.value.split("")[0] : "");
+const firstWord = ref(
+  localStorage.getItem("name") ? username.value.split("")[0] : ""
+);
 
 const logout = () => {
   localStorage.clear();
@@ -13,21 +15,18 @@ const logout = () => {
 </script>
 <template>
   <v-layout style="height: 50px">
-    <v-app-bar :elevation="2">
+    <v-app-bar :elevation="1" class="rounded-pill">
       <template v-slot:prepend>
         <v-app-bar-nav-icon @click.stop="drawer = !drawer"
           ><i class="bi bi-list" style="font-size: 1.6rem"></i
         ></v-app-bar-nav-icon>
       </template>
-      <v-avatar :color="'blue-accent-2'" class="mr-2" @click="sheetMenuProfile = true">
-        <!-- <img
-          @click="sheetMenuProfile = true"
-          src="@/assets/img/profile.png"
-          width="60"
-          alt=""
-          class="profile-img"
-        /> -->
-        <span  class="text-h5" style="cursor: pointer;">{{ firstWord }}</span>
+      <v-avatar
+        :color="'blue-accent-2'"
+        class="mr-2"
+        @click="sheetMenuProfile = true"
+      >
+        <span class="text-h5" style="cursor: pointer">{{ firstWord }}</span>
       </v-avatar>
     </v-app-bar>
   </v-layout>
@@ -58,23 +57,12 @@ const logout = () => {
           prepend-icon="mdi-file-document-outline"
           title="Faturas"
         ></v-list-item>
-
-        <v-divider class="mb-4 mt-4"></v-divider>
-
-        <v-list-item
-          color="blue-darken-3"
-          @click="logout()"
-          :to="'/login'"
-          prepend-icon="mdi-logout"
-          title="Sair"
-          value=""
-        ></v-list-item>
       </v-list>
     </v-navigation-drawer>
 
     <v-row justify="center">
-      <v-bottom-sheet v-model="sheetMenuProfile">
-        <v-card height="600">
+      <v-bottom-sheet v-model="sheetMenuProfile" inset>
+        <v-card height="600" class="rounded-t-xl">
           <v-card-title>
             <h4>{{ username }}</h4>
           </v-card-title>
@@ -98,7 +86,17 @@ const logout = () => {
                   ></v-list-item>
 
                   <v-divider class="mb-4 mt-4"></v-divider>
+
+                  <v-list-item
+                    color="blue-darken-3"
+                    @click="logout()"
+                    :to="'/login'"
+                    prepend-icon="mdi-logout"
+                    title="Sair"
+                    value=""
+                  ></v-list-item>
                 </v-list>
+
               </div>
             </div>
           </v-card-text>
@@ -119,5 +117,4 @@ const logout = () => {
 </template>
 
 <style scoped>
-
 </style>
